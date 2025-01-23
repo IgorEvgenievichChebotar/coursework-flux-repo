@@ -1,5 +1,24 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+metadata:
+  name: flux-system
+  namespace: flux-system
+
+# Подключаем все нужные манифесты
 resources:
-- gotk-components.yaml
-- gotk-sync.yaml
+  # Базовые файлы Flux (изначально созданы "flux bootstrap")
+  - gotk-components.yaml
+  - gotk-sync.yaml
+
+  # В них могут храниться дополнительные HelmRepository/репо
+  - helm-repository.yml
+  - repository.yml
+  - helm.yaml
+  - manifests.yml
+
+  # Подтягиваем все .yaml из каталога ../helm,
+  # чтобы Flux смог увидеть HelmRelease для vault, cert-manager, demo-app и т.д.
+  - ../helm
+
+  # Подтягиваем все .yaml из ../manifests, например issuer и cert
+  - ../manifests
