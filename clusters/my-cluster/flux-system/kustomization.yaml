@@ -13,7 +13,6 @@ resources:
   - helm-repository.yml
   - repository.yml
   - manifests.yml
-  - kustomization.yaml  # (если нужно)
 
   # перечисляем отдельно все файлы из ../helm
   - ../helm/bank-vault.yml
