@@ -38,7 +38,7 @@ spec:
       usernameSecret: "vault:secret/data/webapp/config#username"
     service:
       type: ClusterIP
-      port: 9090
+      port: 80
       portName: "http"
     ingress:
       enabled: true
