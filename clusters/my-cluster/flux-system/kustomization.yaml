@@ -5,26 +5,5 @@ metadata:
   namespace: flux-system
 
 resources:
-  # Базовые Flux-манифесты
   - gotk-components.yaml
   - gotk-sync.yaml
-
-  # HelmRepository, HelmRelease и другие манифесты в этой папке
-  - helm-repository.yml
-  - repository.yml
-  - manifests.yml
-
-  # перечисляем отдельно все файлы из ../helm
-  - ../helm/bank-vault.yml
-  - ../helm/cert-manager.yml
-  - ../helm/demo-app.yml
-  - ../helm/elk.yml
-  - ../helm/fluentd.yml
-  - ../helm/prometheus-adapter.yml
-  - ../helm/prometheus.yml
-  - ../helm/vault.yml
-
-  # и то же самое для ../manifests
-  - ../manifests/example-com-cert.yaml
-  - ../manifests/issuer-secret.yaml
-  - ../manifests/vault-issuer.yaml
