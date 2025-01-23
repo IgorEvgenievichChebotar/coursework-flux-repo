@@ -4,21 +4,28 @@ metadata:
   name: flux-system
   namespace: flux-system
 
-# Подключаем все нужные манифесты
 resources:
-  # Базовые файлы Flux (изначально созданы "flux bootstrap")
+  # Базовые Flux-манифесты
   - gotk-components.yaml
   - gotk-sync.yaml
 
-  # В них могут храниться дополнительные HelmRepository/репо
+  # HelmRepository, HelmRelease и другие манифесты в этой папке
   - helm-repository.yml
   - repository.yml
-  - helm.yaml
   - manifests.yml
+  - kustomization.yaml  # (если нужно)
 
-  # Подтягиваем все .yaml из каталога ../helm,
-  # чтобы Flux смог увидеть HelmRelease для vault, cert-manager, demo-app и т.д.
-  - ../helm
+  # перечисляем отдельно все файлы из ../helm
+  - ../helm/bank-vault.yml
+  - ../helm/cert-manager.yml
+  - ../helm/demo-app.yml
+  - ../helm/elk.yml
+  - ../helm/fluentd.yml
+  - ../helm/prometheus-adapter.yml
+  - ../helm/prometheus.yml
+  - ../helm/vault.yml
 
-  # Подтягиваем все .yaml из ../manifests, например issuer и cert
-  - ../manifests
+  # и то же самое для ../manifests
+  - ../manifests/example-com-cert.yaml
+  - ../manifests/issuer-secret.yaml
+  - ../manifests/vault-issuer.yaml
