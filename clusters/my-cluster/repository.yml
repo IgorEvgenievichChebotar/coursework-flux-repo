@@ -101,11 +101,33 @@ spec:
   url: oci://cr.yandex/yc-marketplace/yandex-cloud/vault/chart
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
+kind: GitRepository
 metadata:
   name: helm-app
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1m
   url: https://github.com/JohnnyTengu/helm-app
-  branch: main
+  ref:
+    branch: main
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: demo-app
+  namespace: flux-system       # или где вам нужно
+spec:
+  releaseName: demo-app
+  chart:
+    spec:
+      # Это путь до самого Chart внутри Git-репо:
+      # Если Chart.yaml лежит в корне репо, укажите chart: "."
+      chart: .
+      # Или, если у вас отдельная папка /chart, тогда chart: ./chart
+      sourceRef:
+        kind: GitRepository
+        name: helm-app      # Совпадает с metadata.name из GitRepository
+        namespace: flux-system
+      # Можете указать version, но если chart: "." то version будет игнорироваться
+  interval: 1m
+
